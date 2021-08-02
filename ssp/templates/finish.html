@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div  class="textpad">
+        <!-- Выводим результат создания аккаунтов -->
+        <br/>
+        <br/>
+        <h3>Создана заявка на создание учетных записей:</h3>
+        <br/><br/>
+        <section class="tobecreated">
+            <h4>Фамилия</h4>
+            <h4>Имя</h4>
+            <h4>Отчество</h4>
+            <h4>Login</h4>
+            <h4>Email</h4>
+            <h4>Компания</h4>
+            <h4>Телефон</h4>
+            <h4>Номер CDE</h4>
+        </section>
+        <section class="tobecreated">
+            {% for account in accounts %}
+                <span>{{account['second_name']}}</span>
+                <span>{{account['first_name']}}</span>
+                <span>{{account['middle_name']}}</span>
+                <span>{{account['login']}}</span>
+                <span>{{account['email']}}</span>
+                <span>{{account['company']}}</span>
+                <span>{{account['phone']}}</span>
+                <span>{{account['cde']}}</span>
+            {% endfor %}
+        </section>
+        <br/><br/>
+        <span>
+            Заявку будет проверена модератором, после чего пароли будут отправлены по электронной почте.
+            <br/>
+            Вам будет отправлено уведомление на адрес {{ session.get('email') }}
+            <br/>
+            Если пароли не пришли в течение 4 часов в рабочее время,  <a href="mailto:{{mailto}}">напишите нам письмо</a>
+        </span>
+        <br/>
+        {% if csv %}
+        <small class="greyfont">
+            {{csv}}
+        </small>
+        {% endif %}
+        {% if temp_link != 'test' %}
+        <a href={{temp_link}}>ACCEPT</a>
+        {% endif %}
+        <br/><br/>
+    </div>
+{% endblock content %}

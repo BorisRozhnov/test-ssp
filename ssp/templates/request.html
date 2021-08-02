@@ -1,0 +1,175 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div  class="textpad">
+        </br>
+        <div>
+            <h1>Создание учетных записей в домене</h1>
+        </div>
+        </br>
+        <div>
+            <h6>Заполните форму, добавьте аккаунты кнопкой <span style="color: #17a2b8">Добавить аккаунт</span> и отправьте заявку кнопкой <span style="color: #17a2b8">Отправить</span></h6>
+            <br/>
+            <span>
+                Необходимо указать действующий адрес <strong>Email</strong>, на этот адрес будет отправлен пароль для аккаунта.
+            </span>
+            <br/>
+            <span>В качества <strong>Login</strong> можно использовать текст из Email адреса до символа @.</span>
+            <br/>
+        </div>
+        <form method="post" action="">
+            {{ form.hidden_tag() }}
+              <table>
+                <tr>
+                    <th scope="col"><h4> {{ form.second_name.label(class='form-control-label')}} </h4></th>
+                    <th scope="col"><h4> {{ form.first_name.label(class='form-control-label')}} </h4></th>
+                    <th scope="col"><h4> {{ form.middle_name.label(class='form-control-label')}} </h4></th>
+                    <th scope="col"><h4> {{ form.login.label(class='form-control-label')}} </h4></th>
+                    <th scope="col"><h4> {{ form.email.label(class='form-control-label')}} </h4></th>
+                    <th scope="col"><h4> {{ form.company.label(class='form-control-label')}} </h4></th>
+                    <th scope="col"><h4> {{ form.phone.label(class='form-control-label')}} </h4></th>
+                    <th scope="col"><h4> {{ form.cde.label(class='form-control-label')}}</h4></th>
+                    <th scope="col"><h4> </h4></th>
+                    <th scope="col"><h4> </h4></th>
+                </tr>
+                <tr valign="top">
+                    <td>
+                        {% if form.second_name.errors %}
+                        {{ form.second_name(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {{ form.second_name.errors[0] }}
+                            </div>
+                        {% else %}
+                            {{ form.second_name(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if form.first_name.errors %}
+                        {{ form.first_name(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {{ form.first_name.errors[0] }}
+                            </div>
+                        {% else %}
+                            {{ form.first_name(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if form.middle_name.errors %}
+                        {{ form.middle_name(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {{ form.middle_name.errors[0] }}
+                            </div>
+                        {% else %}
+                            {{ form.middle_name(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if form.login.errors %}
+                        {{ form.login(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {{ form.login.errors[0] }}
+                            </div>
+                        {% else %}
+                            {{ form.login(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {{ form.email.errors[0] }}
+                            </div>
+                        {% else %}
+                            {{ form.email(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if form.company.errors %}
+                        {{ form.company(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {{ form.company.errors[0] }}
+                            </div>
+                        {% else %}
+                            {{ form.company(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if form.phone.errors %}
+                        {{ form.phone(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {{ form.phone.errors[0] }}
+                            </div>
+                        {% else %}
+                            {{ form.phone(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if form.cde.errors %}
+                        {{ form.cde(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {{ form.cde.errors[0] }}
+                            </div>
+                        {% else %}
+                            {{ form.cde(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+            </br>
+            <div>
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+        <br/><br/>
+        <!-- Если login или email уже существует -->
+        {% if dubbleinput %}
+            <span class="warn">Вы уже добавили аккаунт с таким ФИО или Login</span>
+            <br/>
+        {% endif %}
+        <!-- Если login или email уже существует -->
+        {% if ldapcheck %}
+            <span class="notwarn">В Active Directory уже имеется пользователь с указанными параметрами:</span>
+            <br/>
+            <span class={{ldapattr['cn_class']}}>Имя: {{ldapcheck.cn}}</span>
+            <br/>
+            <span class={{ldapattr['sam_class']}}>Login: {{ldapcheck.sAMAccountName}}</span>
+            <br/>
+            <span class="notwarn">Email: {{ldapcheck.mail}}</span>
+
+        {% endif %}
+        <br/><br/>
+
+    <!-- Если передается переменная с аккаунтами отображаем список уже добавленных аккаунтов -->
+        {% if accounts %}
+            <h4>Будут созданы учетные записи:</h4>
+            <br/>
+            <section class="mainform">
+                {% for account in accounts %}
+                    <span>{{account['second_name']}}</span>
+                    <span>{{account['first_name']}}</span>
+                    <span>{{account['middle_name']}}</span>
+                    <span>{{account['login']}}</span>
+                    <span>{{account['email']}}</span>
+                    <span>{{account['company']}}</span>
+                    <span>{{account['phone']}}</span>
+                    <span>{{account['cde']}}</span>
+                    <span>
+                        <form action='/remove_item'>
+                            <input type="hidden" name="id" value={{account['id']}}>
+                            <button class="btn btn-outline-info">Удалить</button>
+                        </form>
+                    </span>
+                {% endfor %}
+            </section>
+            <br/>
+            <form action="/finish">
+                <button class="btn btn-outline-info">Отправить</button>
+            </form>
+        {% endif %}
+        <br/><br/><br/><br/>
+
+    </div>
+{% endblock content %}

@@ -1,0 +1,88 @@
+header {
+    height: 70px;
+    background: #fafafa;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 10px solid #ebebec;
+    z-index: 999;
+}
+body {
+  background: #fafafa;
+  color: #333333;
+}
+form {
+    display: inline-block; /*Or display: inline; */
+}
+.headcenter{
+    margin-left: 1%; /* Отступ слева */
+    margin-right: 1%; /* Отступ справа */
+    position: absolute;
+    left: 32%;
+}
+.headright{
+    margin-left: 1%; /* Отступ слева */
+    margin-right: 1%; /* Отступ справа */
+    position: absolute;
+    right: 0%;
+}
+.centre {
+    text-align: center; /* Выравнивание по центру */
+}
+.mainform {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(9, 1fr);
+}
+.tobecreated {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(8, 1fr);
+}
+.dbshow {
+    display: inline-grid;
+    gap: 20px;
+    grid-template-columns: repeat (2, 1fr);
+}
+.warn {
+    color: red; /* Красный цвет символов */
+    font-size: 130%; /* Размер шрифта в процентах */
+}
+.notwarn {
+    color: black; /* Красный цвет символов */
+    font-size: 130%; /* Размер шрифта в процентах */
+}
+.redfont {
+    color: #c36c69; /* Красный цвет символов */
+}
+.greyfont {
+    color: #e6e6e6; /* серый цвет символов */
+}
+
+.textpad {
+    margin-left: 1%; /* Отступ слева */
+    margin-right: 1%; /* Отступ справа */
+}
+.link a {
+     display: block; /* Ссылка как блочный элемент */
+     text-align: center; /* Выравнивание по центру */
+     height: 100%; /* Высота на весь слой */
+     color: #666; /* Цвет ссылки */
+}
+.btn-color{
+    color: #17a2b8;
+}
+/* dev options*/
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.bcolor {
+  background: #fafafa;
+  color: #333333;
+}

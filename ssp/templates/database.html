@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="textpad">
+        <div>
+            <h1>Содержимое БД ожидающих заявок</h1>
+        </div>
+        </br></br>
+        {% if db %}
+            <div class="col-md-8">
+                {% for key in db.keys() | list %}
+                    {% if key | length  == 40 %}
+                    <section class="tobecreated">
+                        <h5>{{ key }}</h5>
+                        <h5>{{ db.get(key + '_mail') }}</h5>
+                        <h5><a href={{link}}arbitration?id={{key}}&accept=1><font color=green>Accept</font></a></h5>
+                        <h5><a href={{link}}arbitration?id={{key}}&accept=0><font color=red>Decline</font></a></h5>
+                    </section>
+                    <br/>
+                    <section class="tobecreated">
+                        <h6>Фамилия</h6>
+                        <h6>Имя</h6>
+                        <h6>Отчество</h6>
+                        <h6>Login</h6>
+                        <h6>Email</h6>
+                        <h6>Компания</h6>
+                        <h6>Телефон</h6>
+                        <h6>CDE</h6>
+                    </section>
+                    <section class="tobecreated">
+                        {% for field in db.get(key) %}
+                            <span>{{field['second_name']}}</span>
+                            <span>{{field['first_name']}}</span>
+                            <span>{{field['middle_name']}}</span>
+                            <span>{{field['login']}}</span>
+                            <span>{{field['email']}}</span>
+                            <span>{{field['company']}}</span>
+                            <span>{{field['phone']}}</span>
+                            <span>{{field['cde']}}</span>
+                        {% endfor %}
+                    </section>
+                    <br/><br/>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if not db %}
+        <h3>База пустая</h3>
+        {% endif %}
+        <br/><br/>
+        <div>
+            <h5>Для удаления перезапустите приложение</h5>
+        </div>
+        <br/>
+    </div>
+{% endblock content %}
